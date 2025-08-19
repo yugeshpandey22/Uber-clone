@@ -6,7 +6,9 @@ import UserSignup from "./pages/UserSignup.jsx";
 import CaptainLogin from "./pages/CaptainLogin.jsx";
 import CaptainSignup from "./pages/CaptainSignup.jsx";
 
-const App = () => {
+
+function App() {
+  // Ensure UserData context is used
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -16,6 +18,6 @@ const App = () => {
       <Route path="/captain-signup" element={<CaptainSignup />} /> {/* ✅ Captain */}
     </Routes>
   );
-};
+}
 
 export default App;

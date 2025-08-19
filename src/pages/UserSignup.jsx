@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserData } from "../context/UserContext"; // ✅ context import
 
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
@@ -7,17 +8,26 @@ const UserSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // ✅ Context se user state le lo
+  const [user, setUser] = useContext(UserData);
+
   const submitHandler = (e) => {
     e.preventDefault();
+    setUser({
+      email: email,
+      fullName: {
+        firstName: firstName,
+        lastName: lastName,
+      },
+      password: password,
+    });
 
-    const newUser = {
+    console.log("User Signup Data:", {
       firstName,
       lastName,
       email,
       password,
-    };
-
-    console.log("User Signup Data:", newUser);
+    });
 
     setFirstName("");
     setLastName("");
@@ -80,7 +90,7 @@ const UserSignup = () => {
             type="submit"
             className="bg-[#111] text-white font-medium rounded px-4 py-2 border w-full text-lg hover:bg-[#333] transition mb-4"
           >
-            Login
+            Signup
           </button>
 
           <p className="text-base text-center">
@@ -91,24 +101,8 @@ const UserSignup = () => {
           </p>
         </form>
       </div>
-
-      {/* ✅ Styled Paragraph */}
-      <div className="mt-8 bg-gray-100 p-6 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-3 text-center">
-          About Uber
-        </h2>
-       <p className="text-gray-700 leading-relaxed text-justify bg-gray-100 p-6 rounded-xl shadow-md mt-6">
-  Uber is a global ride-hailing company founded in 2009 in San Francisco, USA. It connects riders who need transportation with drivers through a simple mobile app. Uber has revolutionized the transportation industry by making it possible to book a ride anytime with just a smartphone and internet connection. The service provides transparent fares, real-time tracking, estimated arrival times, and multiple payment options.
-
-  <br /><br />
-
-  Beyond ride-hailing, Uber has expanded its services into Uber Eats (food delivery), Uber Freight (logistics), and even electric bikes and scooters. The company also creates flexible earning opportunities for drivers, allowing them to work on their own schedules.
-
-  </p>
-
-      </div>
     </div>
   );
-}
+};
 
 export default UserSignup;

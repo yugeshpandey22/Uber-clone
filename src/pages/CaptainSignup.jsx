@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserData } from "../context/UserContext";
 
-const CaptionSignup = () => {
+const CaptainSignup = () => {
+  const [user, setUserData] = useContext(UserData);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -9,15 +12,19 @@ const CaptionSignup = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     const newUser = {
-      firstName,
-      lastName,
-      email,
-      password,
+      fullName: {
+        firstName: firstName,
+        lastName: lastName,
+      },
+      email: email,
+      password: password,
     };
 
-    console.log("User Signup Data:", newUser);
+    setUserData(newUser);
+
+    // ✅ Console log instead of showing on UI
+    console.log("User Data (from Context):", newUser);
 
     setFirstName("");
     setLastName("");
@@ -36,7 +43,7 @@ const CaptionSignup = () => {
         />
 
         <form onSubmit={submitHandler}>
-          <h3 className="text-lg font-medium mb-2">What's your name</h3>
+          <h3 className="text-lg font-medium mb-2">What's your Caption name</h3>
           <div className="flex gap-2 mb-7">
             <input
               required
@@ -80,35 +87,19 @@ const CaptionSignup = () => {
             type="submit"
             className="bg-[#111] text-white font-medium rounded px-4 py-2 border w-full text-lg hover:bg-[#333] transition mb-4"
           >
-            Login
+            Signup
           </button>
 
           <p className="text-base text-center">
-            Already have a account?{" "}
+            Already have an account?{" "}
             <Link to="/login" className="text-blue-600 hover:underline">
               Login here
             </Link>
           </p>
         </form>
       </div>
-
-      {/* ✅ Styled Paragraph */}
-      <div className="mt-8 bg-gray-100 p-6 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-3 text-center">
-          About Uber
-        </h2>
-        <p className="text-gray-700 leading-relaxed text-justify">
-          Uber is a global ride-hailing company founded in 2009 in San Francisco,
-          USA. It connects riders who need transportation with drivers through a
-          simple mobile app. Uber has revolutionized the transportation industry
-          by making it possible to book a ride anytime with just a smartphone and
-          internet connection. The service provides transparent fares, real-time
-          tracking, estimated arrival times, and multiple payment options.
-        </p>
-        
-      </div>
     </div>
   );
 };
 
-export default CaptionSignup;
+export default CaptainSignup;
